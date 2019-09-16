@@ -1,15 +1,19 @@
 package com.freenow.dataaccessobject;
 
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 import com.freenow.domainobject.DriverDO;
 import com.freenow.domainvalue.OnlineStatus;
-import java.util.List;
-import org.springframework.data.repository.CrudRepository;
 
 /**
  * Database Access Object for driver table.
  * <p/>
  */
-public interface DriverRepository extends CrudRepository<DriverDO, Long>
+@Repository
+public interface DriverRepository extends JpaRepository<DriverDO, Long>
 {
 
     List<DriverDO> findByOnlineStatus(OnlineStatus onlineStatus);

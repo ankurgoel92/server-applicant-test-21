@@ -1,46 +1,25 @@
 package com.freenow.domainobject;
 
-import com.freenow.domainvalue.GeoCoordinate;
-import com.freenow.domainvalue.OnlineStatus;
 import java.time.ZonedDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.NotNull;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.freenow.domainvalue.GeoCoordinate;
+import com.freenow.domainvalue.OnlineStatus;
+
 @Entity
-@Table(
-    name = "driver",
-    uniqueConstraints = @UniqueConstraint(name = "uc_username", columnNames = {"username"})
-)
-public class DriverDO
+@Table(name = "driver")
+public class DriverDO extends UserDO
 {
-
-    @Id
-    @GeneratedValue
-    private Long id;
-
-    @Column(nullable = false)
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private ZonedDateTime dateCreated = ZonedDateTime.now();
-
-    @Column(nullable = false)
-    @NotNull(message = "Username can not be null!")
-    private String username;
-
-    @Column(nullable = false)
-    @NotNull(message = "Password can not be null!")
-    private String password;
-
-    @Column(nullable = false)
-    private Boolean deleted = false;
+    private static final long serialVersionUID = -3643153652925084797L;
 
     @Embedded
     private GeoCoordinate coordinate;
@@ -53,56 +32,25 @@ public class DriverDO
     @Column(nullable = false)
     private OnlineStatus onlineStatus;
 
+    @OneToOne(mappedBy = "driverDO")
+    private CarDO carDO;
 
-    private DriverDO()
+
+    public DriverDO()
     {
+
     }
 
 
     public DriverDO(String username, String password)
     {
+
         this.username = username;
         this.password = password;
-        this.deleted = false;
         this.coordinate = null;
         this.dateCoordinateUpdated = null;
         this.onlineStatus = OnlineStatus.OFFLINE;
-    }
-
-
-    public Long getId()
-    {
-        return id;
-    }
-
-
-    public void setId(Long id)
-    {
-        this.id = id;
-    }
-
-
-    public String getUsername()
-    {
-        return username;
-    }
-
-
-    public String getPassword()
-    {
-        return password;
-    }
-
-
-    public Boolean getDeleted()
-    {
-        return deleted;
-    }
-
-
-    public void setDeleted(Boolean deleted)
-    {
-        this.deleted = deleted;
+        this.setDeleted(false);
     }
 
 
@@ -128,6 +76,18 @@ public class DriverDO
     {
         this.coordinate = coordinate;
         this.dateCoordinateUpdated = ZonedDateTime.now();
+    }
+
+
+    public CarDO getCarDO()
+    {
+        return carDO;
+    }
+
+
+    public void setCarDO(CarDO carDO)
+    {
+        this.carDO = carDO;
     }
 
 }
