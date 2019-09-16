@@ -1,7 +1,7 @@
 # Implementation  Details
 
 ## Launch Instructions
-* _Run the application -> Navigate to http://localhost:8080/  -> Authenticate (admin01 and admin01pw) -> Try out the endpoints from swagger._
+* _Build the application -> Run it -> Navigate to http://localhost:8080/  -> Authenticate (admin01 and admin01pw) -> Try out the endpoints from swagger._
 
 ## Search API Contract
 
